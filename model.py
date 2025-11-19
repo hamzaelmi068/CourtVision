@@ -31,7 +31,6 @@ RAW_DATA_DIR = os.path.join(PROJECT_ROOT, "data")
 MODEL_DIR = "models"
 os.makedirs(MODEL_DIR, exist_ok=True)
 
-# Completed seasons we’ll actually model on
 TRAIN_YEARS = list(range(2016, 2024)) 
 VAL_YEAR = 2024          
 TEST_YEAR = 2025                

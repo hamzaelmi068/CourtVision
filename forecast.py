@@ -9,7 +9,6 @@ from model import (
     MODEL_DIR,
 )
 
-# If you defined this in model.py, you can import it instead:
 FORECAST_YEARS = [2026]  # 2025-26 season
 
 
@@ -64,22 +63,15 @@ def make_mvp_leaderboard(panel, y_pred, top_k=10):
     for year in sorted(df["season_end_year"].unique()):
         df_year = df[df["season_end_year"] == year].copy()
 
-        # === NEW: filter out tiny-sample players for the leaderboard ===
-        # You can tune these thresholds. Example: require at least 15 games.
         MIN_GAMES = 9
         if "G" in df_year.columns:
             df_year = df_year[df_year["G"] >= MIN_GAMES].copy()
-
-        # If you want to be more strict, you could add a minutes filter too:
-        # if "MP" in df_year.columns:
-        #     df_year = df_year[df_year["MP"] >= 500].copy()
 
         # If after filtering there are still no players, skip this year
         if df_year.empty:
             print(f"Warning: no players passed the forecast filter for season_end_year={year}")
             leaderboards[year] = df_year
             continue
-        # === END NEW FILTER ===
 
         df_year = df_year.sort_values("pred_award_share", ascending=False)
 
